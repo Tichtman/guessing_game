@@ -1,0 +1,53 @@
+
+
+html , body{
+    background-color: rgb(179, 215, 240);
+    height: 100%;
+}
+
+body{
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+.column{
+    text-align: center;
+    font-family: Arial;
+    border-style: double;
+    
+}
+
+.column p{
+    line-height: 35px;
+    
+    
+}
+
+.column h1{
+
+        background-color: #d6edf3;
+        text-align: center;
+        padding: 20px;
+        text-shadow: 1px 1px;
+        animation: coolfilter 7s infinite
+    
+}
+@keyframes coolfilter {
+    50% {box-shadow: 5px 10px 15px rgb(114, 114, 116);}
+  }
+
+.column2 button{
+    text-align: center;
+    font-family: Arial;
+    padding: 32px 16px;
+    border-radius: 12px;
+    width: 100%;
+    font-size: large;   
+}
+
+.column2 button:hover{
+    background-color: rgb(83, 83, 83);
+    color: white;
+}
