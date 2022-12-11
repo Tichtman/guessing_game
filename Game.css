@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html , body{
+    background-color: rgb(113, 107, 169);
+    height: 100%;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+
+section{
+    display: grid;
+    grid-template-columns: repeat(3,11rem);
+    grid-template-rows: repeat(3,11rem);
+    grid-gap: 2rem;
+    perspective: 800;
+    background: rgba(34, 6, 117, 0.23);
+    
+}
+
+.card{
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 2s cubic-bezier(0.175,0.885,0.32,1.275);
+    box-shadow: rgba(0,0,0,0.4) 0px 5px 15px ;
+    border-radius: 20%;
+}
+
+.face,
+.back{
+    width: calc(100%);
+    height: calc(100%);
+    position: absolute;
+    pointer-events: none;
+    border-radius: 20%;
+    box-shadow: 4px 4px 8px 2px rgba(0,0,0,0.4);
+}
+
+.back{
+    background: rgb(205, 215, 4);
+    backface-visibility: hidden;
+}
+
+.toggleCard{
+    transform: rotateY(180deg);
+}
+
+.face{
+    transform: rotateY(-180deg);
+}
