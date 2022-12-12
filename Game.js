@@ -1,11 +1,24 @@
-//
-const section = document.querySelector('section');
-const playerLivesCount = document.querySelector('span');
+
+// const playerLivesCount = document.querySelector('span');
 let playerLives = 5;
 
 //
-playerLivesCount.textContent = playerLives;
+// playerLivesCount.textContent = playerLives;
 //
+
+const start = () => {
+    //1. card generator
+    //2. lives
+    //3. button to unable
+    //4. count down
+    cardGenerator();
+}
+
+const restart = () => {
+    
+}
+
+
 
 const getData = () => [
     {imgSrc: './img/ema_dog.jpg',name:'dog' },
@@ -28,82 +41,68 @@ const randomize = () => {
 
 //
 const cardGenerator = () => {
-    const cards = document.getElementsByClassName('card');
+    let cards = document.getElementsByClassName('card');
     console.log(cards);
     let card = cards[Math.floor(Math.random() * 10)];
-    card.setAttribute('name','dog' );
-    card.firstChild.src = './img/ema_dog.jpg';
-    cards.forEach((card) => {
-        card.addEventListener('click', (e) => {
-            card.classList.toggle('toggleCard');
-            checkCards(e);
-        });
-    });
-    
-    
-    
-    
-    
-    cards.sort(() => Math.random() -0.5);
-    const cardData = randomize();
-    //
-    cardData.forEach((item) => {
-        const card = document.createElement('div');
-        const face = document.createElement('img');
-        const back = document.createElement('div');
-        card.classList = 'card';
-        face.classList = 'face';
-        back.classList = 'back';
-        //
-        face.src = item.imgSrc;
-        card.setAttribute('name',item.name );
-        //
-        section.appendChild(card);
-        card.appendChild(face);
-        card.appendChild(back);
-        // card.onclick = checkCards(e);
+    card.setAttribute('name','dog');
+    card.querySelector('.face').setAttribute('src', './img/ema_dog.jpg');
 
+    // (card.firstChild).setAttribute('src', './img/ema_dog.jpg');
+    for (card of cards) {
         card.addEventListener('click', (e) => {
-            card.classList.toggle('toggleCard');
             checkCards(e);
         });
-    });
+    }    
+    // cards.sort(() => Math.random() -0.5);
+    // const cardData = randomize();
+    // //
+    // cardData.forEach((item) => {
+    //     const card = document.createElement('div');
+    //     const face = document.createElement('img');
+    //     const back = document.createElement('div');
+    //     card.classList = 'card';
+    //     face.classList = 'face';
+    //     back.classList = 'back';
+    //     //
+    //     face.src = item.imgSrc;
+    //     card.setAttribute('name',item.name );
+    //     //
+    //     section.appendChild(card);
+    //     card.appendChild(face);
+    //     card.appendChild(back);
+    //     // card.onclick = checkCards(e);
+
+    //     card.addEventListener('click', (e) => {
+    //         card.classList.toggle('toggleCard');
+    //         checkCards(e);
+    //     });
+    // });
 };
 
 
 //Check Cards
 const checkCards = (e) => {
-    // e.classList.toggle('toggleCard');
-    console.log(e);
     const clickedCard = e.target;
+    if (clickedCard.classList.contains('flipped')) {
+        return;
+    }
+    clickedCard.classList.toggle('toggleCard');
     clickedCard.classList.add('flipped');
-    const flippedCard = document.querySelectorAll('.flipped');
-    if(flippedCard.length === 1) {
-        if(
-            flippedCard[0].getAttribute('name') === 'dog'
-        ) {
-            console.log('match');
-            //Run a check to see if we won the game!
-            Restart('you won!');
-
-        } else {
-            console.log('worng');
-            flippedCard.forEach((card) => {
-                card.classList.remove('flipped');
-                setTimeout(() => card.classList.remove('toggleCard'), 1000);
-                stoper();
-            });
-            playerLives--;
-            playerLivesCount.textContent = playerLives;
-            //Run a check to see if we Lost the game!
-            if(playerLives === 0) {
-                Restart('try again');
-                
-            }
+    if (clickedCard.getAttribute('name') === 'dog') {
+        console.log('match');
+        //Run a check to see if we won the game!
+        //Restart('you won!');
+    } else {
+        console.log('wrong');
+        setTimeout(() => card.classList.remove('toggleCard'), 1000);
+        playerLives--;
+        //playerLivesCount.textContent = playerLives;
+        //Run a check to see if we Lost the game!
+        if(playerLives === 0) {
+            Restart('try again');    
         }
     }
 };
-
 
 
 //Restart
@@ -147,7 +146,3 @@ const stoper = () => {
      }
     }, 1000);
 }
-
-
-
-cardGenerator();

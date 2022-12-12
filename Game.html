@@ -6,51 +6,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TicTacToe</title>
     <link rel="stylesheet" href="./Game.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <script type="text/javascript" src="./Game.js"></script>
   </head>
   <body>
-    <h1>lives: <span class="playerLivesCount"></span></h1>
-    <section style="pointer-events: all">
-      <div class="card" name="no dog" style="pointer-events: all">
+    <h1>Guessing Game</h1>
+    <div class="row" id="play-buttons">
+      <button
+        class="game-option"
+        type="button"
+        id="start"
+        title="start"
+        onclick="start()"
+      >
+        <i class="fa fa-play"></i>
+      </button>
+      <button
+        class="game-option"
+        disabled
+        type="button"
+        id="pause"
+        title="pause"
+        onclick="pause()"
+      >
+        <i class="fa fa-pause"></i>
+      </button>
+      <button
+        class="game-option"
+        disabled
+        type="button"
+        id="restart"
+        title="restart"
+        onclick="restart()"
+      >
+        <i class="fa fa-refresh"></i>
+      </button>
+    </div>
+    <h2 class="row" id="lives">
+      lives
+      <i class="fa fa-heart"></i>
+      <i class="fa fa-heart"></i>
+      <i class="fa fa-heart"></i>
+      <i class="fa fa-heart"></i>
+      <i class="fa fa-heart"></i>
+    </h2>
+    <section class="row" style="pointer-events: all">
+      <div class="card" id="card0" name="no dog" style="pointer-events: all">
         <img class="face" src="./img/no.jpg" />
         <div class="back"></div>
       </div>
-      <div class="card" name="no dog" style="pointer-events: all">
+      <div class="card" id="card1" name="no dog" style="pointer-events: all">
         <img class="face" src="./img/no.jpg" />
         <div class="back"></div>
       </div>
-      <div class="card" name="no dog" style="pointer-events: all">
+      <div class="card" id="card2" name="no dog" style="pointer-events: all">
         <img class="face" src="./img/no.jpg" />
         <div class="back"></div>
       </div>
-      <div class="card" name="no dog" style="pointer-events: all">
+      <div class="card" id="card3" name="no dog" style="pointer-events: all">
         <img class="face" src="./img/no.jpg" />
         <div class="back"></div>
       </div>
-      <div class="card" name="no dog" style="pointer-events: all">
+      <div class="card" id="card4" name="no dog" style="pointer-events: all">
         <img class="face" src="./img/no.jpg" />
         <div class="back"></div>
       </div>
-      <div class="card" name="no dog" style="pointer-events: all">
+      <div class="card" id="card5" name="no dog" style="pointer-events: all">
         <img class="face" src="./img/no.jpg" />
         <div class="back"></div>
       </div>
-      <div class="card" name="no dog" style="pointer-events: all">
+      <div class="card" id="card6" name="no dog" style="pointer-events: all">
         <img class="face" src="./img/no.jpg" />
         <div class="back"></div>
       </div>
-      <div class="card" name="no dog" style="pointer-events: all">
+      <div class="card" id="card7" name="no dog" style="pointer-events: all">
         <img class="face" src="./img/no.jpg" />
         <div class="back"></div>
       </div>
-      <div class="card" name="no dog" style="pointer-events: all">
+      <div class="card" id="card8" name="no dog" style="pointer-events: all">
         <img class="face" src="./img/no.jpg" />
         <div class="back"></div>
       </div>
     </section>
-    <div class="container"></div>
-
-    Seconds: <b id="seconds"></b>
-    <script src="./Game.js"></script>
   </body>
 </html>

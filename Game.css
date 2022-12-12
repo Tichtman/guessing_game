@@ -1,6 +1,6 @@
 *{
     margin: 0;
-    padding: 0;
+    padding: 0.1rem;
     box-sizing: border-box;
 }
 
@@ -9,7 +9,7 @@ html , body{
     height: 100%;
 }
 
-body{
+body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,8 +17,32 @@ body{
     flex-direction: column;
 }
 
+/* .row {
+    height: auto;
+    width: 100%;
+    vertical-align: middle;
+    position: initial;
+}
 
-section{
+.column {
+    height: auto;
+    width: 50%;
+    margin-left: 0%;
+    vertical-align: middle;
+} */
+
+h1, h2 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.fa-heart {
+    font-size:48px;
+    color:red;
+    left: 0%;   
+}
+
+
+section {
     display: grid;
     grid-template-columns: repeat(3,11rem);
     grid-template-rows: repeat(3,11rem);
@@ -57,4 +81,29 @@ section{
 
 .face{
     transform: rotateY(-180deg);
+}
+
+.game-option {
+    text-align: center;
+    font-family: Arial;
+    padding: 16px 16px;
+    border-radius: 12px;
+    font-size: large;
+}
+
+#start {
+    background-color: rgb(68, 180, 68);
+}
+
+#pause {
+    background-color: rgb(180, 68, 68);
+}
+
+#restart {
+    background-color: rgb(209, 225, 30);
+}
+
+.column2 button:hover{
+    background-color: rgb(83, 83, 83);
+    color: white;
 }
