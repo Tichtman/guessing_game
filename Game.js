@@ -1,148 +1,140 @@
-
-// const playerLivesCount = document.querySelector('span');
 let playerLives = 5;
+heartsArr = [];
+var countDownTarget;
+var isPaused = false;
+let cards = [];
+var intervalID ;
 
-//
-// playerLivesCount.textContent = playerLives;
-//
+const setNumberOfLives = () => {
+    const lives = document.getElementById('lives');
+    for (let i = 0; i < playerLives; i++) {
+        const heart = document.createElement('i');
+        heart.setAttribute('id', 'heart' + i);
+        heart.setAttribute('class', 'fa fa-heart');
+        heartsArr.push(heart);
+        lives.appendChild(heart);
+    }
+}
+
+const setButtonsAbility = (dict) => {
+    for (const [key, value] of Object.entries(dict)) {
+        document.getElementById(key).disabled = value;
+    }
+}
+
 
 const start = () => {
-    //1. card generator
-    //2. lives
-    //3. button to unable
-    //4. count down
     cardGenerator();
+    setNumberOfLives();
+    setButtonsAbility({'start': true, 'pause': false, 'restart': false});
+    document.getElementById("start").onclick = resume;
+    stoper();
 }
 
 const restart = () => {
-    
+    setButtonsAbility({'start': true, 'pause': false, 'restart': false});
+    window.location.reload();
 }
 
+const pause = () => {
+    setButtonsAbility({'start': false, 'pause': true, 'restart': false});
+    isPaused = true;
+    for (card of cards) {
+        card.removeEventListener('click', clickEvent);
+    }
+}
 
+const resume = () => {
+    setButtonsAbility({'start': true, 'pause': false, 'restart': false});
+    isPaused = false;
+    for (card of cards) {
+        card.addEventListener('click', clickEvent);
+    }
+}
 
-const getData = () => [
-    {imgSrc: './img/ema_dog.jpg',name:'dog' },
-    {imgSrc: './img/no.jpg',name:'no dog' },
-    {imgSrc: './img/no.jpg',name:'no dog' },
-    {imgSrc: './img/no.jpg',name:'no dog' },
-    {imgSrc: './img/no.jpg',name:'no dog' },
-    {imgSrc: './img/no.jpg',name:'no dog' },
-    {imgSrc: './img/no.jpg',name:'no dog' },
-    {imgSrc: './img/no.jpg',name:'no dog' },
-    {imgSrc: './img/no.jpg',name:'no dog' },
-];
+const end = () => {
+    setButtonsAbility({'start': true, 'pause': true, 'restart': false});
+    isPaused = true;
+    for (card of cards) {
+        card.removeEventListener('click', clickEvent);
+    }
+}
 
-//
-const randomize = () => {
-    const cardData = getData();
-    cardData.sort(() => Math.random() -0.5);
-    return cardData;
-};
-
-//
 const cardGenerator = () => {
-    let cards = document.getElementsByClassName('card');
-    console.log(cards);
-    let card = cards[Math.floor(Math.random() * 10)];
+    cards = document.getElementsByClassName('card');
+    let card = cards[Math.floor(Math.random() * 9)];
     card.setAttribute('name','dog');
     card.querySelector('.face').setAttribute('src', './img/ema_dog.jpg');
-
-    // (card.firstChild).setAttribute('src', './img/ema_dog.jpg');
     for (card of cards) {
-        card.addEventListener('click', (e) => {
-            checkCards(e);
-        });
-    }    
-    // cards.sort(() => Math.random() -0.5);
-    // const cardData = randomize();
-    // //
-    // cardData.forEach((item) => {
-    //     const card = document.createElement('div');
-    //     const face = document.createElement('img');
-    //     const back = document.createElement('div');
-    //     card.classList = 'card';
-    //     face.classList = 'face';
-    //     back.classList = 'back';
-    //     //
-    //     face.src = item.imgSrc;
-    //     card.setAttribute('name',item.name );
-    //     //
-    //     section.appendChild(card);
-    //     card.appendChild(face);
-    //     card.appendChild(back);
-    //     // card.onclick = checkCards(e);
-
-    //     card.addEventListener('click', (e) => {
-    //         card.classList.toggle('toggleCard');
-    //         checkCards(e);
-    //     });
-    // });
+        card.addEventListener('click', clickEvent);
+    }
 };
 
+const clickEvent = (e) => {
+    checkCards(e);
+}
 
-//Check Cards
 const checkCards = (e) => {
     const clickedCard = e.target;
     if (clickedCard.classList.contains('flipped')) {
         return;
     }
+    //stop counting
+    clearInterval(intervalID);
     clickedCard.classList.toggle('toggleCard');
     clickedCard.classList.add('flipped');
     if (clickedCard.getAttribute('name') === 'dog') {
         console.log('match');
-        //Run a check to see if we won the game!
-        //Restart('you won!');
+        let tryNum = (playerLives - heartsArr.length)+1;
+        alert('YOU WON on your ' + tryNum + 'th try');
+        end();
     } else {
         console.log('wrong');
-        setTimeout(() => card.classList.remove('toggleCard'), 1000);
-        playerLives--;
-        //playerLivesCount.textContent = playerLives;
-        //Run a check to see if we Lost the game!
-        if(playerLives === 0) {
-            Restart('try again');    
-        }
+        setTimeout(() => clickedCard.classList.remove('toggleCard'), 1000);
+        clickedCard.classList.remove('flipped');
+        wrong();
+        checkIfLost();
     }
 };
 
+const alert = (text) => {
+    setTimeout(() => window.alert(text), 100);
+}
 
-//Restart
-const Restart = (Text) => {
-    let cardData = randomize();
-    let faces = document.querySelectorAll('.face');
-    let Cards = document.querySelectorAll('.card');
-    section.style.pointerEvents = 'none';
-    cardData.forEach((item,index) => {
-        Cards[index].classList.remove('toggleCard')
-        //Randomize
-        setTimeout(()=> {  
-            Cards[index].style.pointerEvents = 'all';
-            faces[index].src = item.imgSrc;
-            Cards[index].setAttribute('name',item.name);
-            section.style.pointerEvents = 'all';
-        },1000);
-    });
-    playerLives = 5;
-    playerLivesCount.textContent = playerLives;
-    setTimeout(() => window.alert(Text), 100);
+const checkIfLost = () => {
+    if(heartsArr.length === 0) {
+        isPaused = true;
+        alert('you lost! try again');
+        end();
+    }
+}
 
-};
-
+const wrong = () => {
+    //remove 1 heart
+    const heart = heartsArr.pop();
+    const lives = document.getElementById('lives');
+    lives.removeChild(heart);
+    //restart timeout
+    stoper();
+}
 
 //stoper
 const stoper = () => {
-    var countDownTarget = new Date().getTime() + 1 * 30 * 1000;
-    function showClock(target) {
-        const distance = target - new Date().getTime();
-        const secs = distance < 0 ? 0: Math.floor((distance % (1000 * 60)) / 1000);        
-    // Output the results
-        document.getElementById("seconds").innerHTML = secs;
-    }
-    showClock(countDownTarget);
+    countDownTarget = 30;
+    const element = document.getElementById("seconds");
+    element.innerHTML = 'Count down: ' + countDownTarget;
     // Update the count down every 1 second
-    var x = setInterval(function() {
-        showClock(countDownTarget);
-        if (countDownTarget - new Date().getTime() < 0) {
-          clearInterval(x);
-     }
-    }, 1000);
+    intervalID  = setInterval(countDown, 1000);
+}
+
+const countDown = () => {
+    if(countDownTarget <= 0) {
+        wrong();
+        checkIfLost();
+        clearInterval(intervalID);        
+    }
+    if(!isPaused) {
+        countDownTarget -= 1;
+        document.getElementById("seconds").innerHTML = 'Count down: ' + countDownTarget;
+    }
 }
