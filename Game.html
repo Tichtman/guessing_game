@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TicTacToe</title>
+    <title>Guessing Game</title>
     <link rel="stylesheet" href="./Game.css" />
     <link
       rel="stylesheet"
@@ -45,8 +45,23 @@
         <i class="fa fa-refresh"></i>
       </button>
     </div>
-    <h2 class="row" id="lives">Lives:</h2>
-    <h2 id="seconds">Count down:</h2>
+    <table style="width: 100%">
+      <tr>
+        <th style="float: left; width: 50%; position: relative">
+          <h2 style="padding-right: 10px; float: right" class="row" id="lives">
+            Lives:
+          </h2>
+        </th>
+        <th style="float: right; width: 50%; position: relative">
+          <h2
+            style="padding-left: 3px; float: left; position: relative"
+            id="seconds"
+          >
+            Count down:
+          </h2>
+        </th>
+      </tr>
+    </table>
     <section class="row" style="pointer-events: all">
       <div class="card" id="card0" name="no dog" style="pointer-events: all">
         <img class="face" src="./img/no.jpg" />

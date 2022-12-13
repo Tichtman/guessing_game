@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0.1rem;
     box-sizing: border-box;
@@ -6,7 +6,7 @@
 
 html , body{
     background-color: rgb(113, 107, 169);
-    height: 100%;
+    height: auto;
 }
 
 body {
@@ -16,20 +16,6 @@ body {
     display: flex;
     flex-direction: column;
 }
-
-/* .row {
-    height: auto;
-    width: 100%;
-    vertical-align: middle;
-    position: initial;
-}
-
-.column {
-    height: auto;
-    width: 50%;
-    margin-left: 0%;
-    vertical-align: middle;
-} */
 
 h1, h2 {
     font-family: Arial, Helvetica, sans-serif;
@@ -41,27 +27,27 @@ h1, h2 {
     left: 0%;   
 }
 
-
 section {
+    align-items: center;
     display: grid;
     grid-template-columns: repeat(3,11rem);
     grid-template-rows: repeat(3,11rem);
     grid-gap: 2rem;
     perspective: 800;
     background: rgba(34, 6, 117, 0.23);
-    
 }
 
 .card{
     position: relative;
+    height: 100%;
+    width: 100%;
     transform-style: preserve-3d;
     transition: transform 2s cubic-bezier(0.175,0.885,0.32,1.275);
     box-shadow: rgba(0,0,0,0.4) 0px 5px 15px ;
     border-radius: 20%;
 }
 
-.face,
-.back{
+.face, .back{
     width: calc(100%);
     height: calc(100%);
     position: absolute;
