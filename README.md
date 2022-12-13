@@ -1,6 +1,6 @@
 # Guessing Game
 
-This is our secomd assignment in WEB development:<br />
+This is our second assignment in WEB development:<br />
 
 We implemented a simple guessing game in which the computer generates one random card of the 9 cards and the human player gets x chances to guess the secret card.<br />
 On each guess the program will tell the user whether or not their guess is correct or not.<br />
